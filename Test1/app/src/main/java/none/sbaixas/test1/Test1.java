@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Test1 extends AppCompatActivity {
     private SharedPreferences settings;
@@ -50,13 +51,18 @@ public class Test1 extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(resultCode == RESULT_OK){
-            SharedPreferences settings = getSharedPreferences(LOGIN_PREFERENCES, MODE_PRIVATE);
             SharedPreferences.Editor prefEditor = settings.edit();
             prefEditor.putString("userEmail", data.getExtras().getString("email"));
             prefEditor.putString("userPwd", data.getExtras().getString("password"));
             prefEditor.commit();
             emailTextView.setText(data.getExtras().getString("email"));
             passwordTextView.setText(data.getExtras().getString("password"));
+            Context context = getApplicationContext();
+            CharSequence text = "Login Successful";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         }
     }
 
